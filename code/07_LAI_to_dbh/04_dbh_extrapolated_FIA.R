@@ -3,7 +3,7 @@ library(raster)
 
 
 #### Read data
-FIA_extr <- read.delim("~/R/carbon_stocks_sussex_prj/data/FIA/HF_FIA_extrapolation.txt")
+FIA_extr <- read.delim("~/R/carbon-stocks/data/FIA/HF_FIA_extrapolation.txt")
 
 
 ## transform to spdf
@@ -38,7 +38,7 @@ closestExtrap = get.knnx(data=FIA_extr@coords, query=LAI_3m_df[1:2],k = 1)
 
 # Iterate over pft matrix to calculate dbh vals
 
-DF_Basal_area_total_matchedFIA =data.frame()
+DF_Basal_area_total_extrapolated =data.frame()
 
 
 for (sht in seq(length(GLAH14_pulses))){
@@ -203,11 +203,11 @@ write.csv(get(as.character(paste("css",e,sep="_"))),file)
 
 tmplist = cbind(tmplist,FIAm@data)
         
-        DF_Basal_area_total_matchedFIA = rbind(DF_Basal_area_total_matchedFIA,tmplist)
+        DF_Basal_area_total_extrapolated = rbind(DF_Basal_area_total_extrapolated,tmplist)
         
 }
 
-write.csv(DF_Basal_area_total_matchedFIA,file="csv/DF_Basal_area_total_matchedFIA.csv")
+write.csv(DF_Basal_area_total_extrapolated,file="csv/DF_Basal_area_total_extrapolated.csv")
 
 rm(get(as.character(paste("css",e,sep="_"))))
 rm(nplant)

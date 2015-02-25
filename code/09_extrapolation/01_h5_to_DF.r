@@ -1,6 +1,9 @@
 ## Extrapolation 01
 
-library(rhdf5)
+# source("http://bioconductor.org/biocLite.R")
+# biocLite("rhdf5")
+
+library(rhdf5)a
 library(sp)
 
 #////////////////// Exploration (datya living @ apollo)

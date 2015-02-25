@@ -4,8 +4,8 @@ library(rhdf5)
 
 
 ### Setwd
-setwd("/home/a/ag/ag448/Documents/carbon_stocks_sussex_prj")
-# setwd("~/R/carbon_stocks_sussex_prj")
+setwd("/home/a/ag/ag448/Documents/carbon-stocks")
+# setwd("~/R/carbon-stocks")
 
 
 #/////////////////////////// GLAH14

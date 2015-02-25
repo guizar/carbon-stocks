@@ -3,7 +3,7 @@ library(rhdf5)
 ## Based on the objects from previous code
 load("001_GLAH_subsetting.RData")
 
-setwd("/home/a/ag/ag448/Documents/carbon_stocks_sussex_prj")
+setwd("/home/a/ag/ag448/Documents/carbon-stocks")
 GL01_wd<- 'data/GLAS/GLAH01' 
 GL14_wd<- 'data/GLAS/GLAH14' 
 

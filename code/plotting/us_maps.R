@@ -2,7 +2,7 @@ library(rhdf5)
 library(raster)
 library(rgdal)
 
-setwd("/home/a/ag/ag448/Documents/carbon_stocks_sussex_prj")
+setwd("/home/a/ag/ag448/Documents/carbon-stocks")
 
 ## Maps
 ### writeOGR(us, ".", "data/us_states", driver = "ESRI Shapefile")

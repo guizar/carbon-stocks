@@ -4,8 +4,8 @@ library(raster)
 library(rgdal)
 
 ## Files ID table
-setwd("~/Documents/R/carbon_stocks_sussex_prj")
-#setwd("/home/a/ag/ag448/Documents/carbon_stocks_sussex_prj")
+setwd("~/R/carbon-stocks")
+#setwd("/home/a/ag/ag448/Documents/carbon-stocks")
 
 files <- data.frame(id=formatC(seq_len(length(list.files(path = "data/GLAS/"))), width=2, flag="0"), file=list.files(path = "data/GLAS/") ,stringsAsFactors = F )
 
@@ -55,8 +55,8 @@ rm(list = ls(pattern="^xypath_"))
 
 ## Plot each path
 xy_list <- ls(pattern="^xy_")
-setwd("~/Documents/R/carbon_stocks_sussex_prj/png")
-# setwd("/home/a/ag/ag448/Documents/carbon_stocks_sussex_prj/png")
+setwd("~/R/carbon-stocks/png")
+# setwd("/home/a/ag/ag448/Documents/carbon-stocks/png")
 
 ## Individual plots
 for (item in xy_list) {

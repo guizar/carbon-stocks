@@ -4,7 +4,7 @@ library(rgdal)
 library(sp)
 
 
-load("~/R/carbon_stocks_sussex_prj/Rdata/002_GLAH_attributes.RData")
+load("~/R/carbon-stocks/Rdata/002_GLAH_attributes.RData")
 
 
 ## Create Data Frames 

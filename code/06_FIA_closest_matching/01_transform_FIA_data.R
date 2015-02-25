@@ -2,8 +2,8 @@ library(raster)
 library(rgdal)
 
 # read
-FIA.plot.info <- read.delim("~/R/carbon_stocks_sussex_prj/data/FIA/FIA plot info.txt")
-FIA.NE <- read.delim("~/R/carbon_stocks_sussex_prj/data/FIA/FIA_NewEngland.txt")
+FIA.plot.info <- read.delim("~/R/carbon-stocks/data/FIA/FIA plot info.txt")
+FIA.NE <- read.delim("~/R/carbon-stocks/data/FIA/FIA_NewEngland.txt")
 
 
 # change coord names

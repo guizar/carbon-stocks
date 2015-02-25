@@ -3,7 +3,7 @@ library(raster)
 
 ## Create SPDF with DEM data
 
-load("/Users/alejandroguizar/R/carbon_stocks_sussex_prj/Rdatasets/dem.RData")
+load("~/R/carbon-stocks/Rdata/dem.RData")
 
 dem <- data.frame(x = as.vector(lons), y= as.vector(lats), dem = as.vector(dem))
 

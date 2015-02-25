@@ -1,7 +1,7 @@
 library(rhdf5)
 
 # # define h5 file
-# setwd("~/R/carbon_stocks_sussex_prj")
+# setwd("~/R/carbon-stocks")
 # NLCD_LC_h5<- 'data/NLCD_LC_harvard.h5' 
 # #NLCD_LC_h5<- 'RDF/NLCD_LC_harvard.h5' 
 # 
