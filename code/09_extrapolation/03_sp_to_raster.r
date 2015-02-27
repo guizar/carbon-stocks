@@ -1,6 +1,9 @@
 library(raster)
 library(rgdal)
 
+
+### PLOT JUST FOR EXPLORATION
+
 # MODIS_EVI
 proj4string(MODIS_EVI_DF)=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
 MODIS_EVI_DF = spTransform(MODIS_EVI_DF,CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
