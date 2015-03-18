@@ -6,6 +6,8 @@ load("~/R/carbon-stocks/Rdata/MODIS_EVI.RData")
 load("~/R/carbon-stocks/Rdata/SOIL.RData")	
 load("~/R/carbon-stocks/Rdata/DEM_DF.RData")	
 
+# ---- old approach / see below
+
 ## get closest modis index for every glas shot [CLOSEST 1 WORKS]
 MODIS_knnx_01 <- get.knnx(data=MODIS_EVI_DF@coords, query=DF_GLAH14_01@coords,1)
 MODIS_knnx_04 <- get.knnx(data=MODIS_EVI_DF@coords, query=DF_GLAH14_04@coords,1)
@@ -159,7 +161,7 @@ rm(list=ls(pattern ="^SOIL_knnx"))
 rm(list=ls(pattern ="^modis_neighbour"))
 rm(list=ls(pattern ="^MODIS_knnx"))
 
-# write.csv(SOIL_9pts,"SOIL_9pts.csv")
+# write.csv(SOIL_9pts,"SOIL_9pts.csv") 
 # write.csv(DEM_9pts,"DEM_9pts.csv")
 # write.csv(MODIS_1pts,"MODIS_1pts.csv")
 
@@ -179,4 +181,40 @@ rm(list=ls(pattern ="^MODIS_knnx"))
 # careful HERE: only if you have all the elements
 # save.image("carbon_stocks_sussex_prj.RData")
 
+# ----- 600 PTS 
 
+# MODIS
+# get closest MODIS index for every glas shot [CLOSEST 1 WORKS]
+MODIS_600 = get.knnx(data=MODIS_EVI_DF@coords, query=DATA[,c("x","y")],1)
+MODIS_600$xy = coordinates(MODIS_EVI_DF[as.vector(MODIS_600$nn.index),])
+MODIS_600$pts =  get.knnx(data =MODIS_EVI_DF@coords ,query = MODIS_600$xy,1)
+
+# replace MODIS_600 knnx obj with SPDF
+MODIS_600 = MODIS_EVI_DF[as.vector(MODIS_600$pts$nn.index),]
+
+
+# SOIL
+# get closest SOIL index for every glas shot [CLOSEST 1 WORKS]
+SOIL_600 = get.knnx(data=SOIL_DF@coords, query=DATA[,c("x","y")],9)
+SOIL_600$xy = coordinates(SOIL_DF[as.vector(SOIL_600$nn.index),])
+SOIL_600$pts =  get.knnx(data =SOIL_DF@coords ,query = SOIL_600$xy,1)
+
+# replace SOIL_600 knnx obj with SPDF
+SOIL_600 = SOIL_DF[as.vector(SOIL_600$pts$nn.index),]
+
+# DEM
+# get closest DEM index for every glas shot [CLOSEST 1 WORKS]
+DEM_600 = get.knnx(data=DEM_DF@coords, query=DATA[,c("x","y")],9)
+DEM_600$xy = coordinates(DEM_DF[as.vector(DEM_600$nn.index),])
+DEM_600$pts =  get.knnx(data =DEM_DF@coords ,query = DEM_600$xy,1)
+
+# replace DEM_600 knnx obj with SPDF
+DEM_600 = DEM_DF[as.vector(DEM_600$pts$nn.index),]
+
+#RM large datasets
+rm(DEM_DF)
+rm(SOIL_DF)
+rm(MODIS_EVI_DF)
+
+# careful HERE: only if you have all the elements
+# save.image("carbon_stocks_sussex_prj.RData")
