@@ -191,7 +191,9 @@ for (e in seq(length(pftmatrix$id))){
         
 }
 
-write.csv(DF_Basal_area_total_pftmatrix,file="DF_Basal_area_total_pftmatrix.csv")
+wddata = "~/R/carbon-stocks/tables"
+
+write.csv(DF_Basal_area_total_pftmatrix,file= file.path(wddata,"DF_Basal_area_total_pftmatrix.csv"))
 
 rm(nplant)
 rm(row)

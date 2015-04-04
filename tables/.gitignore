@@ -1,0 +1,7 @@
+# This is where the tables will be places (after you executed the scripts in the sequential order)
+
+# So git, ignore everything in this directory
+*
+# Except this file
+!.gitignore
+
