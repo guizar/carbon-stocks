@@ -38,7 +38,7 @@ evi_4h = round(max(DATA$EVI),digits = 0)
 # Create Columns with these categories 
 DATA = DATA %>% 
   mutate(SAND_CUTOFF = ifelse(SAND < 0.6,paste(sand_1t,sand_2d,sep="-"),
-                              paste(sand_2d,sand_3d,sep="-"))) %>% 
+                                paste(sand_2d,sand_3d,sep="-"))) %>% 
            
   mutate(DEM_CUTOFF = ifelse(DEM < 200,paste(dem_1t,dem_2d,sep="-"),
                       ifelse(DEM > 450,paste(dem_3d,dem_4h,sep="-"),
