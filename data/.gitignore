@@ -1,0 +1,7 @@
+# DATA REPO
+
+# ignore everything in this directory
+*
+# Except this file
+!.gitignore
+

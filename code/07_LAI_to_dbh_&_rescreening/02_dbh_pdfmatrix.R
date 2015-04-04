@@ -1,13 +1,7 @@
 library(rgdal)
 
-# Iterate over pft matrix to calculate dbh vals
-
-DF_Basal_area_total_pftmatrix =data.frame()
-
-
-
-# coordinates (get(paste("DF_GLAH14",df$GLAH14,sep = "_"))[as.numeric(df$GLAH14_rownumber),])
-
+# --- Iterate over pft matrix to calculate dbh vals ----
+CSS_DBH_MATRIX_4266 =data.frame()
 
 for (e in seq(length(pftmatrix$id))){
         
@@ -77,11 +71,13 @@ for (e in seq(length(pftmatrix$id))){
         lambdapft9 = (diffLAI/(30*Bleafpft9))*pftmatrix[e,4]
         lambdapft10 = (diffLAI/(24.2*Bleafpft10))*pftmatrix[e,5]
         lambdapft11 = (diffLAI/(60*Bleafpft11))*pftmatrix[e,6]
-        #####
-        
-        # View(lambdapft11)
-        
-        nplant <- list(lambdapft6=lambdapft6,lambdapft8=lambdapft8,lambdapft9=lambdapft9,lambdapft10=lambdapft10,lambdapft11=lambdapft11)
+
+          
+        nplant <- list(lambdapft6=lambdapft6,
+                       lambdapft8=lambdapft8,
+                       lambdapft9=lambdapft9,
+                       lambdapft10=lambdapft10,
+                       lambdapft11=lambdapft11)
         
         
         is.na(nplant$lambdapft6) <- 0
@@ -90,8 +86,8 @@ for (e in seq(length(pftmatrix$id))){
         is.na(nplant$lambdapft10) <- 0
         is.na(nplant$lambdapft11) <- 0
         
-        #### create DF ####
-        #-------------------------------- [DONE]
+        #--- create DF ----
+        # structure:
         # | 1 |
         # length(base) <- 0
         # | 2 |
@@ -102,7 +98,7 @@ for (e in seq(length(pftmatrix$id))){
         # length(base) <- dbh6
         # | 5 |
         # height[ind_signBeg_3m]
-        # | 6 | # according to pft -- according to the pftmatrx row?? or is it just the iteraton??
+        # | 6 | 
         # length(base) <- 6
         # | 7 |
         # is.na(lambdapft6) <- 0
@@ -111,12 +107,10 @@ for (e in seq(length(pftmatrix$id))){
         #rowbind
         #css_04_31 <- rbind(css6:11)
         
-        #-------------------------------- [DONE]
+        #-------------------------------- 
         n <-c(6,8,9,10,11)
         
-        
         for ( i in n){
-                
                 assign(paste("css",i,sep=""), 
                        data.frame(
                                "1"=rep(0,times = length(base)), 
@@ -136,21 +130,21 @@ for (e in seq(length(pftmatrix$id))){
         colnames(css11)= c("1","2","4","5","6","7")
         
         # Rbind all css 
-        assign(paste("css",id,sep="_"), rbind(css6,css8,css9,css10,css11))
-        
+        assign(paste("css",id,sep="_"), rbind(css6,css8,css9,css10,css11)) 
         lenccs =  data.frame("3"=1:length(get(as.character(paste("css",id,sep="_")))[["1"]]))
-        
         colnames(lenccs)= "3"
         
         ####
-        assign(paste("css",id,sep="_"), cbind(get(as.character(paste("css",id,sep="_"))),lenccs))
-        assign(paste("css",id,sep="_"), get(as.character(paste("css",id,sep="_")))[c("1","2","3","4","5","6","7")])                                
+        assign(paste("css",id,sep="_"), 
+               cbind(get(as.character(paste("css",id,sep="_"))),lenccs))
+        assign(paste("css",id,sep="_"), 
+               get(as.character(paste("css",id,sep="_")))[c("1","2","3","4","5","6","7")])                                
         
-        
-        
-        ## write csv
-#         write.csv(get(as.character(paste("css",id,sep="_"))),paste("css",id,".csv",sep="_"))
-        
+
+
+        ## Write GLAS shot csv
+        # file = file.path("R/carbon-stocks/tables/CSS_DBH_MATRIX_4266",paste("css",id,".csv",sep="_"))
+        # write.csv(get(as.character(paste("css",id,sep="_"))),file, row.names=F)
         
         #### Basal area ####
         # Basal area
@@ -187,13 +181,12 @@ for (e in seq(length(pftmatrix$id))){
         rm(list=ls(pattern = "^Basal"))
         rm(list=ls(pattern = "^lambdapft")) 
         
-        DF_Basal_area_total_pftmatrix = rbind(DF_Basal_area_total_pftmatrix,tmplist)
+        CSS_DBH_MATRIX_4266 = rbind(CSS_DBH_MATRIX_4266,tmplist)
         
 }
 
 wddata = "~/R/carbon-stocks/tables"
-
-write.csv(DF_Basal_area_total_pftmatrix,file= file.path(wddata,"DF_Basal_area_total_pftmatrix.csv"))
+write.csv(CSS_DBH_MATRIX_4266,file= file.path(wddata,"CSS_DBH_MATRIX_4266.csv",row.names=F))
 
 rm(nplant)
 rm(row)

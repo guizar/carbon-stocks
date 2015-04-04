@@ -1,6 +1,8 @@
 library(rgdal)
 
 wd = "~/R/carbon-stocks/"
+wdrdata = "~/R/carbon-stocks/RData/"
+load("~/R/carbon-stocks/RData/carbon-stocks.RData")
 
 ### INFO
 # LAI_3m_df 
@@ -15,7 +17,7 @@ wd = "~/R/carbon-stocks/"
 
 # Iterate over pft matrix to calculate dbh vals
 
-DF_Basal_area_total_matchedFIA =data.frame()
+CSS_DBH_854 =data.frame()
 
 
 for (sht in seq(length(GLAH14_pulses))){
@@ -136,9 +138,9 @@ assign(paste("css",e,sep="_"), get(as.character(paste("css",e,sep="_")))[c("1","
 
 
 
-## Write GLAS shot csv
-# file = file.path("csv",paste("css",e,".csv",sep="_"))
-# write.csv(get(as.character(paste("css",e,sep="_"))),file)
+# Write GLAS shot csv
+file = file.path("~/R/carbon-stocks/tables/CSS_DBH_854",paste("css",e,sep="_"))
+write.csv(get(as.character(paste("css",e,sep="_"))), paste(file,".csv",sep=""), row.names=F)
 
 
 #### Basal area ####
@@ -158,12 +160,6 @@ LAItotal = max(LAI)
 
 # total LAIm
 heightMax =  max(base)
-
-# prepare list
-#iname = paste("css",e,sep="_")
-
-#glas = substr(id,1,2)
-#row = as.numeric(substr(id,4,6))
 
 tmplist = data.frame("ID" = paste("css",e,sep="_"),
      coordinates(LAI_3m_df[sht,1:2]),
@@ -188,18 +184,22 @@ tmpsht = t(tmpsht[,-1])
 tmplist = cbind(tmplist,tmpsht)
 
 
-DF_Basal_area_total_matchedFIA = rbind(DF_Basal_area_total_matchedFIA,tmplist)
-
+CSS_DBH_854 = rbind(CSS_DBH_854,tmplist)
 }
 
-row.names(DF_Basal_area_total_matchedFIA)=NULL
+# --- WRITE files ----
+#csv
+file = file.path("~/R/carbon-stocks/tables","CSS_DBH_854.csv")
+write.csv(CSS_DBH_854,file=file,row.names=F)
 
-file = file.path("~/R/carbon-stocks/csv","DF_Basal_area_total_matchedFIA.csv")
-write.csv(DF_Basal_area_total_matchedFIA,file=file)
 
+# #RData
+# file = file.path("~/R/carbon-stocks/RData/","CSS_DBH_854.RData")
+# save.image(get(as.character(paste("css",e,sep="_"))),file=file)
+
+rm(file)
 rm(get(as.character(paste("css",e,sep="_"))))
 rm(nplant)
-rm(row)
 rm(pfti)
 rm(shotnumber)
 rm(zz)
@@ -216,7 +216,6 @@ rm(id)
 rm(ind_maxhite)
 rm(ind_signBeg)
 rm(ind_signBeg_3m)
-rm(glas)
 rm(h1)
 rm(e)
 rm(diffLAI)
@@ -240,7 +239,6 @@ rm(id)
 rm(ind_maxhite)
 rm(ind_signBeg)
 rm(ind_signBeg_3m)
-rm(glas)
 rm(h1)
 rm(e)
 rm(diffLAI)
@@ -248,3 +246,4 @@ rm(n)
 rm(maxhite)
 rm(sht)
 
+save.image("RData/carbon-stocks.RData")

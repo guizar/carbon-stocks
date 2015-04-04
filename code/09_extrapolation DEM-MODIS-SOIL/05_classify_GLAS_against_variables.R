@@ -9,7 +9,8 @@ library(dplyr)
 
 wdrdata = "~/R/carbon-stocks/RData/"
 wdtables= "~/R/carbon-stocks/tables/"
-wdrdata= "~/R/carbon-stocks/RData/"
+wdfun = "~/R/carbon-stocks/fun/"
+
 
 load(file.path(wdrdata,"carbon-stocks.RData"))
 
@@ -46,3 +47,18 @@ DATA = DATA %>%
   mutate(EVI_CUTOFF = ifelse(EVI < 6000,paste(evi_1t,evi_2d,sep="-"),
                       ifelse(EVI > 6500,paste(evi_3d,evi_4h,sep="-"),
                               paste(evi_2d,evi_3d,sep="-"))))
+
+rm(sand_1t)
+rm(sand_2d)
+rm(sand_3d)
+rm(dem_1t)
+rm(dem_2d)
+rm(dem_3d)
+rm(dem_4h)
+rm(evi_1t)
+rm(evi_2d)
+rm(evi_3d)
+rm(evi_4h)
+
+# append RDatasets (carbon-stocks and DATA)
+source(file.path(wdfun,"append_RData.r"))
