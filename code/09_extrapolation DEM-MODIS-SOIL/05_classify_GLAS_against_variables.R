@@ -11,8 +11,8 @@ wdrdata = "~/R/carbon-stocks/RData/"
 wdtables= "~/R/carbon-stocks/tables/"
 wdfun = "~/R/carbon-stocks/fun/"
 
+source(file.path(wdfun,"resave.r"))
 
-load(file.path(wdrdata,"carbon-stocks.RData"))
 
 # --- Define categories ----
 # These is how it will look like
@@ -60,5 +60,26 @@ rm(evi_2d)
 rm(evi_3d)
 rm(evi_4h)
 
-# append RDatasets (carbon-stocks and DATA)
+# append RDatasets 
+# DATA
 source(file.path(wdfun,"append_RData.r"))
+
+# add to carbon-stocks
+rdata = file.path(wdrdata,"carbon-stocks.RData")
+resave(DATA, file = rdata)
+rm(rdata)
+
+# --- quick plot ----
+library(ggplot2)
+
+
+gg = ggplot(DATA, aes(x = CAT, fill=CAT))
+gg = gg + geom_histogram()
+# gg = gg + theme(axis.text.x = element_blank())
+gg = gg + ggtitle("GLAS shots by category")
+gg
+
+file = file.path("~/R/carbon-stocks/png/","GLAH_CAT_18.png")
+ggsave(file,gg,scale = 3)
+rm(file)
+rm(gg)

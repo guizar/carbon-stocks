@@ -13,8 +13,9 @@ library(dplyr)
 wdrdata = "~/R/carbon-stocks/RData/"
 wdtables= "~/R/carbon-stocks/tables/"
 
-# load DATA object
-load(file.path(wdrdata,"carbon-stocks.RData"))
+source(file.path(wdfun,"resave.r"))
+
+load(file.path(wdrdata,"DATA.RData"))
 
 
 # --- Define  categories ----
@@ -62,7 +63,7 @@ CAT_18 = dplyr::filter(DATA, SAND_CUTOFF == S2 & DEM_CUTOFF ==  D3 & EVI_CUTOFF 
     ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & EVI_CUTOFF == E3,"CAT_09",
     ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & EVI_CUTOFF == E1,"CAT_10",
     ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & EVI_CUTOFF == E2,"CAT_11",
-    ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & EVI_CUTOFF == E3,"CAT_12",                                                                                           
+    ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & EVI_CUTOFF == E3,"CAT_12",                  
     ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & EVI_CUTOFF == E1,"CAT_13",
     ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & EVI_CUTOFF == E2,"CAT_14",
     ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & EVI_CUTOFF == E3,"CAT_15",
@@ -74,8 +75,16 @@ CAT_18 = dplyr::filter(DATA, SAND_CUTOFF == S2 & DEM_CUTOFF ==  D3 & EVI_CUTOFF 
 rm(list = c("S1","S2","D1","D2","D3","E1","E2","E3"))
 
 
-# append RDatasets (carbon-stocks and DATA)
+# append RDatasets 
+# DATA
 source(file.path(wdfun,"append_RData.r"))
+
+# add to carbon-stocks
+rdata = file.path(wdrdata,"carbon-stocks.RData")
+resave(DATA, file = rdata)
+rm(rdata)
+
+
 
 # --- RBIND CSS_DBH_854 data | one table per category ----
 
@@ -85,7 +94,8 @@ DATA$ID = as.character(DATA$ID)
 # load CSS_DBH_854 data
 load(file.path(wdrdata,"CSS_DBH_854.RData"))
 cats = ls(pattern = "^CAT_")
- 
+
+
 # --- loop over cats object, and create a CAT_XX_CSS table using cssxxx files ----
 
 for (i in cats){
@@ -104,7 +114,7 @@ for (i in cats){
     df = rbind(df,e)
   }
   
-  colnames(df)= c("1","2","4","5","6","7")
+  colnames(df) = c("1","2","3","4","5","6","7")
   
   # write csv
   file = file.path("~/R/carbon-stocks/tables/CAT_CSS/",
@@ -132,10 +142,11 @@ for (i in cats){
  }
 }
 
-# write RData for all the CAT_XX_CSS objects
+
+
+# ---- write RData for all the CAT_XX_CSS objects ----
 file = file.path("~/R/carbon-stocks/RData/","CAT_CSS.RData")
 save(list=(ls(pattern = "^CAT_")),file=file)
-
 rm(file)
 
 # REMOVE ALL

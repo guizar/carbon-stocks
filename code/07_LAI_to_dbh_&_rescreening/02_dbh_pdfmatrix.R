@@ -1,3 +1,24 @@
+#--- CSS structure:----
+        # 
+        # | 1 |
+        # length(base) <- 0
+        # | 2 |
+        # length(base) <- "04_31" substr(i,1,6)        
+        # | 3 |
+        # 1:length(base)
+        # | 4 |
+        # length(base) <- dbh6
+        # | 5 |
+        # height[ind_signBeg_3m]
+        # | 6 | 
+        # length(base) <- 6
+        # | 7 |
+        # is.na(lambdapft6) <- 0
+# ---
+
+
+
+
 library(rgdal)
 
 # --- Iterate over pft matrix to calculate dbh vals ----

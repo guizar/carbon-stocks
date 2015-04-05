@@ -11,6 +11,9 @@ wdrdata = "~/R/carbon-stocks/RData/"
 wdtables= "~/R/carbon-stocks/tables/"
 wdfun = "~/R/carbon-stocks/fun/"
 
+source(file.path(wdfun,"resave.r"))
+
+
 HGA = read.table(file.path(wddata,"Harvard_Grid_attributes.txt"),header = T,stringsAsFactors = F)
 
 load(file.path(wdrdata,"DATA.RData"))
@@ -35,15 +38,15 @@ evi_4h = round(max(DATA$EVI),digits = 0)
 # --- Create Columns with these categories ----
 HGA = HGA %>% 
   mutate(SAND_CUTOFF = ifelse(SAND < 0.6,paste(sand_1t,sand_2d,sep="-"),
-                              paste(sand_2d,sand_3d,sep="-"))) %>% 
+ paste(sand_2d,sand_3d,sep="-"))) %>% 
   
   mutate(DEM_CUTOFF = ifelse(DEM < 200,paste(dem_1t,dem_2d,sep="-"),
-                             ifelse(DEM > 450,paste(dem_3d,dem_4h,sep="-"),
-                                    paste(dem_2d,dem_3d,sep="-")))) %>% 
+ifelse(DEM > 450,paste(dem_3d,dem_4h,sep="-"),
+   paste(dem_2d,dem_3d,sep="-")))) %>% 
   
   mutate(MODIS_EVI_CUTOFF = ifelse(MODIS_EVI < 6000,paste(evi_1t,evi_2d,sep="-"),
-                             ifelse(MODIS_EVI > 6500,paste(evi_3d,evi_4h,sep="-"),
-                                    paste(evi_2d,evi_3d,sep="-"))))
+ifelse(MODIS_EVI > 6500,paste(evi_3d,evi_4h,sep="-"),
+   paste(evi_2d,evi_3d,sep="-"))))
 
 
 rm(sand_1t)
@@ -73,24 +76,24 @@ E3 = "6500-7175"
 
 HGA = HGA %>% 
   mutate(CAT = 
-           ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E1,"CAT_01",
-                  ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E2,"CAT_02",
-                         ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E3,"CAT_03",
-                                ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E1,"CAT_04",
-                                       ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E2,"CAT_05",
-                                              ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E3,"CAT_06",
-                                                     ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E1,"CAT_07",
-                                                            ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E2,"CAT_08",
-                                                                   ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E3,"CAT_09",
-                                                                          ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E1,"CAT_10",
-                                                                                 ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E2,"CAT_11",
-                                                                                        ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E3,"CAT_12",   
-                                                                                               ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E1,"CAT_13",
-                                                                                                      ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E2,"CAT_14",
-                                                                                                             ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E3,"CAT_15",
-                                                                                                                    ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E1,"CAT_16",
-                                                                                                                           ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E2,
-                                                                                                                                  "CAT_17","CAT_18"))))))))))))))))))
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E1,"CAT_01",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E2,"CAT_02",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E3,"CAT_03",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E1,"CAT_04",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E2,"CAT_05",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E3,"CAT_06",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E1,"CAT_07",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E2,"CAT_08",
+ifelse(SAND_CUTOFF == S1 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E3,"CAT_09",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E1,"CAT_10",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E2,"CAT_11",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D1 & MODIS_EVI_CUTOFF == E3,"CAT_12",   
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E1,"CAT_13",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E2,"CAT_14",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D2 & MODIS_EVI_CUTOFF == E3,"CAT_15",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E1,"CAT_16",
+ifelse(SAND_CUTOFF == S2 & DEM_CUTOFF ==  D3 & MODIS_EVI_CUTOFF == E2,
+  "CAT_17","CAT_18"))))))))))))))))))
 
 # rm cat labels
 rm(list = c("S1","S2","D1","D2","D3","E1","E2","E3"))
@@ -103,18 +106,15 @@ write.csv(HGA,file,row.names=F)
 
 
 # --- Save objects ----
-# safe data object
-save(list = ls(pattern = "DATA"), file = file.path(wdrdata,"DATA.RData"))
-# load carbon-stocks
-load(file.path(wdrdata,"carbon-stocks.RData"))
-# load data object
-load(file.path(wdrdata,"DATA.RData"))
-# open HGA file
-HGA = read.csv(file,header = T)
-                           
-rm(file)
-# souce
+# DATA
 source(file.path(wdfun,"append_RData.r"))
+
+# add to carbon-stocks
+rdata = file.path(wdrdata,"carbon-stocks.RData")
+resave(HGA, file = rdata)
+rm(rdata)
+
+
 
 
 # --- quick plot ----

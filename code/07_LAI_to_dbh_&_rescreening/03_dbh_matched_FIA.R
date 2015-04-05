@@ -1,3 +1,20 @@
+#--- CSS structure:----
+# | 1 |
+# length(base) <- 0
+# | 2 |
+# length(base) <- "04_31" substr(i,1,6)        
+# | 3 |
+# 1:length(base)
+# | 4 |
+# length(base) <- dbh6
+# | 5 |
+# height[ind_signBeg_3m]
+# | 6 | 
+# length(base) <- 6
+# | 7 |
+# is.na(lambdapft6) <- 0
+# ---
+
 library(rgdal)
 
 wd = "~/R/carbon-stocks/"
@@ -69,19 +86,19 @@ zz_1 = length(zz[zz]) # indx at  > (h1-0.15)
 
 
 Bleafpft6 = 0.024*dbh6^1.899
-Bleafpft6[zz] <- Bleafpft6[zz_1]
+Bleafpft6[zz] = Bleafpft6[zz_1]
 
 Bleafpft8 = 0.045*dbh8^1.683
-Bleafpft8[zz] <- Bleafpft8[zz_1]
+Bleafpft8[zz] = Bleafpft8[zz_1]
 
 Bleafpft9 = 0.0031*dbh9^2.249
-Bleafpft9[zz] <- Bleafpft9[zz_1]
+Bleafpft9[zz] = Bleafpft9[zz_1]
 
 Bleafpft10 = 0.0148*dbh10^1.86
-Bleafpft10[zz] <- Bleafpft10[zz_1]
+Bleafpft10[zz] = Bleafpft10[zz_1]
 
 Bleafpft11 = 0.0085*dbh11^1.731
-Bleafpft11[zz] <- Bleafpft11[zz_1]
+Bleafpft11[zz] = Bleafpft11[zz_1]
 
 ##### lambda 
 lambdapft6 = (diffLAI/(6*Bleafpft6))* FIAm$PFT6.BA
@@ -92,17 +109,17 @@ lambdapft11 = (diffLAI/(60*Bleafpft11))*FIAm$PFT11.BA
 #####
 
 #NPLANT LIST
-nplant <- list(lambdapft6=lambdapft6,lambdapft8=lambdapft8,lambdapft9=lambdapft9,lambdapft10=lambdapft10,lambdapft11=lambdapft11)
+nplant = list(lambdapft6=lambdapft6,lambdapft8=lambdapft8,lambdapft9=lambdapft9,lambdapft10=lambdapft10,lambdapft11=lambdapft11)
 
 
-is.na(nplant$lambdapft6) <- 0
-is.na(nplant$lambdapft8) <- 0
-is.na(nplant$lambdapft9) <- 0
-is.na(nplant$lambdapft10) <- 0
-is.na(nplant$lambdapft11) <- 0
+is.na(nplant$lambdapft6) = 0
+is.na(nplant$lambdapft8) = 0
+is.na(nplant$lambdapft9) = 0
+is.na(nplant$lambdapft10) = 0
+is.na(nplant$lambdapft11) = 0
 
        
-n <-c(6,8,9,10,11)
+n =c(6,8,9,10,11)
 
 
 for ( i in n){
