@@ -12,6 +12,8 @@ library(dplyr)
 
 wdrdata = "~/R/carbon-stocks/RData/"
 wdtables= "~/R/carbon-stocks/tables/"
+wdfun= "~/R/carbon-stocks/fun/"
+
 
 source(file.path(wdfun,"resave.r"))
 
@@ -115,6 +117,7 @@ for (i in cats){
   }
   
   colnames(df) = c("1","2","3","4","5","6","7")
+  df$"3" = 1:length(df[,1])
   
   # write csv
   file = file.path("~/R/carbon-stocks/tables/CAT_CSS/",
