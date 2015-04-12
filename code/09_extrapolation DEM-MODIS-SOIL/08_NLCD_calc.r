@@ -56,14 +56,14 @@ rm(rdata)
 # Col 4  =  dbh 
 # Col 6 = PFT
 
-cssls = ls(pattern = "CAT_[0-1][0-9]_CSS")
-for (i in cssls) {
-  if (!is.null(get(i))){
-  assign(i,rbind(get(i),c(0,"BR",length(get(i)[,1])+1,0.2,0,10)))
-  } else {
-  rm(i)  
-  }
-}
+# cssls = ls(pattern = "CAT_[0-1][0-9]_CSS")
+# for (i in cssls) {
+#   if (!is.null(get(i))){
+#   assign(i,rbind(get(i),c(0,"BR",length(get(i)[,1])+1,0.2,0,10)))
+#   } else {
+#   rm(i)  
+#   }
+# }
 
 #  ADD 1 final grass row to each of the 18 CSS files. Populate it with a name 'GR', a dbh of 0.723 and a lambda of 0.196, and a PFT value of 5.
 
