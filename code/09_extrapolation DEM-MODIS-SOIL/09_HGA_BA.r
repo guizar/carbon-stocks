@@ -71,8 +71,8 @@ for (i in seq(length(HGA[,1]))){
   
   #WRITE CSV
   filename = paste("CSS",formatC(i,flag = 0,width = 5),sep="_")
-#   file = file.path("~/R/carbon-stocks/tables/CSS_HGA/",filename)
-#   write.csv(df,paste(file,".csv",sep=""), row.names=F)
+  file = file.path("~/R/carbon-stocks/tables/CSS_HGA/",filename)
+  write.csv(df,paste(file,".csv",sep=""), row.names=F)
   
   # append filename
   HGA$FILENAME[i] = filename
