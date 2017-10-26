@@ -1,12 +1,2 @@
 # carbon-stocks
-
-## To-do
-
-## 02../03..R
--  Create elevation differences DF: Needs to be properly documented
-
-### General maintenance 
-- Homogenize stated read/write dirs  [data / RData / etc... ]
-- check whether write.csv() folders match with present project config
-- Free up some .RData space: Write separate datasets for objects that need not to be present at this stage
-
+This project proposes a workflow to process satelite lidar to characterise forests canopy composition. Waveform lidar is used to determine the vertical structure of foliage, which in turn is used to derive stem density, basal area and biomass. Methods and results derived from this project are further developed in [this](http://ieeexplore.ieee.org/document/8013090/)  publication.
